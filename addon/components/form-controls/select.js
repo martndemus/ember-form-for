@@ -130,7 +130,7 @@ const SelectComponent =  Ember.Component.extend({
       }
     });
 
-    if(optionSelectedPath && selectedItem){
+    if (optionSelectedPath && selectedItem) {
       return selectedItem[optionSelectedPath];
     }
     return selectedItem;
