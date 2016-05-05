@@ -28,7 +28,7 @@ const SelectComponent =  Ember.Component.extend({
     'multiple',
     'name',
     'required',
-    'required:aria-required',
+    'aria-required',
     'size',
     'tabindex',
     'title'
@@ -37,10 +37,8 @@ const SelectComponent =  Ember.Component.extend({
   didReceiveAttrs() {
     this._super(...arguments);
 
-    let required = this.getAttr('required');
-    if (required !== true) {
-      set(this, 'required', false);
-    }
+    let required = this.get('required');
+    set(this, 'aria-required', !!required);
 
     let options = this.getAttr('options');
     if (typeof options === 'string') {
