@@ -3,7 +3,7 @@ import { invokeAction } from 'ember-invoke-action';
 
 const { set } = Ember;
 
-export default Ember.Component.extend({
+const TextAreaComponent = Ember.Component.extend({
   tagName: 'textarea',
 
   attributeBindings: [
@@ -48,3 +48,9 @@ export default Ember.Component.extend({
     invokeAction(this, 'update', this.readDOMAttr('value'));
   }
 });
+
+TextAreaComponent.reopenClass({
+  positionalParams: ['value']
+});
+
+export default TextAreaComponent;
