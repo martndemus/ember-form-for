@@ -146,6 +146,30 @@ test('multiple select a value', function(assert) {
   assert.deepEqual(this.get('value'), [dubbel, ipa, saison]);
 });
 
+test('multiple select de-select all options', function(assert) {
+  let [dubbel, tripel, ipa, saison] = [
+    { id: 1, label: 'Dubbel', type: 'Trappist' },
+    { id: 2, label: 'Tripel', type: 'Trappist' },
+    { id: 3, label: 'IPA', type: 'IPA' },
+    { id: 4, label: 'Saison', type: 'Saison' }
+  ];
+
+  this.on('update', (value) => this.set('value', value));
+  this.set('value', [saison, ipa]);
+  this.set('options', [dubbel, tripel, ipa, saison]);
+
+  this.render(hbs`{{form-controls/select value=value options=options multiple=true
+      update=(action 'update') optionValuePath="id" optionLabelPath="label"
+      groupLabelPath="type"}}`);
+
+  this.$('select').val(['1', '3', '4']);
+  this.$('select').trigger('change');
+  this.$('select').val('');
+  this.$('select').trigger('change');
+
+  assert.deepEqual(this.get('value'), []);
+});
+
 test(`it's possible to bind 'size'`, function(assert) {
   this.render(hbs`{{form-controls/select size=5}}`);
   assert.equal(this.$('select').attr('size'), 5, 'attribute size is set');
