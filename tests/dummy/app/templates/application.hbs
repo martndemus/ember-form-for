@@ -1,7 +1,6 @@
 <h2 id="title">Welcome to Ember Form For</h2>
 
 {{#form-for object update=(action update) reset=(action reset) submit=(action submit) as |f|}}
-  {{log object.errors}}
   {{f.text-field "firstName"}}
   {{f.text-field "lastName"}}
   {{f.select-field "gender" "unknown male female"}}
