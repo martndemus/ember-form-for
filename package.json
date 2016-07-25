@@ -9,7 +9,7 @@
   "scripts": {
     "build": "ember build",
     "start": "ember server",
-    "test": "ember try:testall"
+    "test": "ember try:each"
   },
   "repository": "https://github.com/martndemus/ember-form-for",
   "engines": {
@@ -37,7 +37,7 @@
     "ember-load-initializers": "^0.5.0",
     "ember-resolver": "^2.0.3",
     "ember-suave": "2.0.1",
-    "ember-try": "0.2.2",
+    "ember-try": "0.2.4",
     "loader.js": "^4.0.0"
   },
   "keywords": [
@@ -51,6 +51,9 @@
   },
   "ember-addon": {
     "configPath": "tests/dummy/config",
-    "demoURL": "http://martndemus.github.io/ember-form-for"
+    "demoURL": "http://martndemus.github.io/ember-form-for",
+    "versionCompatibility": {
+      "ember": ">=2.3.0 <3.0.0"
+    }
   }
 }
