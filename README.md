@@ -12,8 +12,6 @@ This Ember.js addon will give you a simple way to build forms.
 __WARNING__: This addon uses __contextual helpers__ and is therefore only
 compatible with apps built with Ember.js version __2.3__ and up.
 
-__NOTE__: This addon is a work in progress, a fuller readme will be added soon.
-
 ## Using Ember Form For
 
 ### Quickstart example
