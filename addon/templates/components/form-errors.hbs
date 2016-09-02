@@ -1,6 +1,6 @@
 {{#if errors}}
   <div class={{joinedErrorClasses}}>
-    {{#each errors as |error index|}}
+    {{#each errors.validation as |error index|}}
       <div id={{concat errorId "-" index}} role="alert">
         {{#if error.message}}
           {{error.message}}
