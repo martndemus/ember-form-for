@@ -21,6 +21,16 @@ const FormForComponent = Component.extend({
 
   attributeBindings: ['tabindex'],
 
+  init() {
+    this._super(...arguments);
+
+    let formClasses = get(this, 'config.formClasses');
+    let classNames = get(this, 'classNames');
+    set(this, 'classNames', (classNames || []).concat(formClasses));
+
+    this.propertyDidChange();
+  },
+
   submit: (object) => object.save(),
   reset:  (object) => object.rollback(),
 
