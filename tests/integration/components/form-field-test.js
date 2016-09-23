@@ -168,6 +168,20 @@ test('It can display errors', function(assert) {
   assert.ok(this.$().text().trim().indexOf('can\'t be blank') !== -1);
 });
 
+test('It exposes hasErrors', function(assert) {
+  this.set('object.errors', { givenName: [{ message: 'can\'t be blank' }] });
+
+  this.render(hbs`
+    {{#form-field "givenName" object=object form="form123" as |f|}}
+      {{#if f.hasErrors}}
+        I HAZ ERRORS
+      {{/if}}
+    {{/form-field}}
+  `);
+
+  assert.ok(this.$().text().trim().indexOf('I HAZ ERRORS') !== -1);
+});
+
 test('I can configure on which property errors are found', function(assert) {
   this.register('service:ember-form-for/config', Ember.Service.extend({
     errorsProperty: ['error']
