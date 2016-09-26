@@ -68,6 +68,8 @@ const FormFieldComponent = Component.extend({
 
     assert(`{{form-field}} requires the propertyName property to be set`,
            typeof get(this, 'propertyName') === 'string');
+
+    set(this, 'modelName', getWithDefault(this, 'object.modelName', get(this, 'object.constructor.modelName')));
   },
 
   propertyNameDidChange: observer('propertyName', 'errorsProperty', function() {
@@ -97,8 +99,6 @@ const FormFieldComponent = Component.extend({
       return humanize(get(this, 'propertyName'));
     }
   }),
-
-  modelName: or('object.modelName', 'object.constructor.modelName'),
 
   labelI18nKey: computed('config.i18nKeyPrefix', 'modelName', 'propertyName', function() {
     return [
