@@ -16,7 +16,8 @@ const {
   observer,
   set,
   Component,
-  String: { dasherize }
+  String: { dasherize },
+  isEmpty
 } = Ember;
 
 const FormFieldComponent = Component.extend({
@@ -134,7 +135,7 @@ const FormFieldComponent = Component.extend({
       });
     }
 
-    return ids.join(' ');
+    return isEmpty(ids) ? null : ids.join(' ');
   }),
 
   _nameForObject() {

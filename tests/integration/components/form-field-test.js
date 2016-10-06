@@ -281,6 +281,15 @@ test('It sets the describedBy of the control to the id of the hint', function(as
   assert.equal(this.$('input').attr('aria-describedby'), expectedId);
 });
 
+test('It does not set the describedBy of the control when there are no ids', function(assert) {
+  this.render(hbs`
+    {{#form-field "givenName" id="test123" object=object as |f|}}
+      {{f.control}}
+    {{/form-field}}
+  `);
+  assert.equal(this.$('input').attr('aria-describedby'), null);
+});
+
 test('It passes invalid to the control when errors are present', function(assert) {
   this.set('object.errors', { givenName: [{ message: 'can\'t be blank' }] });
 
