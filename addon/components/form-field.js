@@ -29,6 +29,17 @@ const FormFieldComponent = Component.extend({
   _defaultErrorsProperty: 'errors',
   errorsProperty: or('config.errorsProperty', '_defaultErrorsProperty'),
 
+  errorsPath(propertyName) {
+    let errorsPath = this.get('config.errorsPath');
+    let errorsProperty = this.get('errorsProperty');
+
+    if (!isPresent(errorsPath)) {
+      errorsPath = `${errorsProperty}.PROPERTY_NAME`;
+    }
+
+    return errorsPath.replace('PROPERTY_NAME', propertyName);
+  },
+
   classNameBindings: [],
 
   concatenatedProperties: [
@@ -75,12 +86,12 @@ const FormFieldComponent = Component.extend({
 
   propertyNameDidChange: observer('propertyName', 'errorsProperty', function() {
     let propertyName = get(this, 'propertyName');
-    let errorsProperty = get(this, 'errorsProperty');
+    let errorsPath = `object.${this.errorsPath(propertyName)}`;
 
     mixin(this, {
       rawValue: reads(`object.${propertyName}`),
-      errors: reads(`object.${errorsProperty}.${propertyName}`),
-      hasErrors: notEmpty(`object.${errorsProperty}.${propertyName}`)
+      errors: reads(errorsPath),
+      hasErrors: notEmpty(errorsPath)
     });
   }),
 
