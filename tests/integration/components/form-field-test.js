@@ -168,6 +168,67 @@ test('It can display errors', function(assert) {
   assert.ok(this.$().text().trim().indexOf('can\'t be blank') !== -1);
 });
 
+test('Displays errors at the correct errorsPath', function(assert) {
+  this.set('object.error', {
+    givenName: {
+      validation: [
+        {
+          message: 'pizza'
+        }
+      ]
+    }
+  });
+  this.set('config', { errorsPath: 'error.PROPERTY_NAME.validation' });
+
+  this.render(hbs`
+    {{#form-field "givenName" object=object form="form123" config=config as |f|}}
+      {{f.errors}}
+    {{/form-field}}
+  `);
+
+  assert.ok(this.$().text().trim().indexOf('pizza') !== -1);
+});
+
+test('Still respects errorsProperty if no errorsPath is defined', function(assert) {
+  this.set('object.foo', {
+    givenName: [
+      {
+        message: 'pizza'
+      }
+    ]
+  });
+  this.set('config', { errorsProperty: 'foo' });
+
+  this.render(hbs`
+    {{#form-field "givenName" object=object form="form123" config=config as |f|}}
+      {{f.errors}}
+    {{/form-field}}
+  `);
+
+  assert.ok(this.$().text().trim().indexOf('pizza') !== -1);
+});
+
+test('errorsPath takes priority over errorsProperty', function(assert) {
+  this.set('object.foo', {
+    givenName: {
+      validation: [
+        {
+          message: 'pizza'
+        }
+      ]
+    }
+  });
+  this.set('config', { errorsProperty: 'foo', errorsPath: 'foo.PROPERTY_NAME.validation' });
+
+  this.render(hbs`
+    {{#form-field "givenName" object=object form="form123" config=config as |f|}}
+      {{f.errors}}
+    {{/form-field}}
+  `);
+
+  assert.ok(this.$().text().trim().indexOf('pizza') !== -1);
+});
+
 test('It exposes hasErrors', function(assert) {
   this.set('object.errors', { givenName: [{ message: 'can\'t be blank' }] });
 
