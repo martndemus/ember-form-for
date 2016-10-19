@@ -282,5 +282,5 @@ module.exports = function(environment) {
 This is because ember-changeset stores it's errors on the `error.PROPERTY_NAME.validation` property,
 while Ember Form For expects them (by default) to be on the `errors` property.
 
-For those still using the old configuration of setting `errorsPath`, this method will still work. 
+For those still using the old configuration of setting `errorsProperty`, this method will still work. 
 However, if both are defined then `errorsPath` will take precedence.
