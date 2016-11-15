@@ -1,5 +1,9 @@
+import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import wait from 'ember-test-helpers/wait';
+
+const { run, RSVP } = Ember;
 
 moduleForComponent('form-controls/submit', 'Integration | Component | {{form-controls/submit}}', {
   integration: true
@@ -10,11 +14,48 @@ test('It renders a submit button', function(assert) {
   assert.equal(this.$('button').attr('type'), 'submit', 'Submit button is rendered');
 });
 
-test('Clicking the submit button triggers the submit action', function(assert) {
+test('Clicking the submit button triggers the "submit" action', function(assert) {
   assert.expect(1);
   this.on('submit', () => assert.ok(true));
   this.render(hbs`{{form-controls/submit submit=(action 'submit')}}`);
   this.$('button').trigger('click');
+});
+
+test('Clicking the submit button triggers the "action" action', function(assert) {
+  assert.expect(1);
+  this.on('submit', () => assert.ok(true));
+  this.render(hbs`{{form-controls/submit action=(action 'submit')}}`);
+  this.$('button').trigger('click');
+});
+
+test('Clicking the submit button supports returning a promise', function(assert) {
+  assert.expect(3);
+  let promise = new RSVP.Promise((resolve) => {
+    run.later(this, () => {
+      resolve();
+    }, 500);
+  });
+
+  this.on('submit', () => {
+    return promise;
+  });
+  this.render(hbs`{{form-controls/submit action=(action 'submit')}}`);
+  let $button = this.$('button');
+
+  $button.trigger('click');
+  assert.equal($button.text().trim(), 'Submitting...', 'Button state changes on pending promise');
+
+  return wait().then(() => {
+    promise.then(() => {
+      assert.ok(true);
+      assert.equal($button.text().trim(), 'Submit', 'Button state returns on fulfilled promise');
+    });
+  });
+});
+
+test('It renders custom text', function(assert) {
+  this.render(hbs`{{form-controls/submit 'Test'}}`);
+  assert.equal(this.$('button').text().trim(), 'Test', 'Submit button shows label');
 });
 
 test(`it's possible to bind 'formaction'`, function(assert) {

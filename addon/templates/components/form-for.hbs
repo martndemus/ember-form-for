@@ -26,7 +26,7 @@
     custom-field=(component 'form-fields/custom-field' object=object update=update)
 
     reset=(component 'form-controls/reset' reset=(action reset object))
-    submit=(component 'form-controls/submit' submit=(action "submit" object))
+    submit=(component 'form-controls/submit' action=(action "submit" object))
 
     button=(component 'form-controls/button')
     ) as |formFields|}}

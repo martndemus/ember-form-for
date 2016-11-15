@@ -38,21 +38,33 @@ const FormForComponent = Component.extend({
     set(object, propertyName, value);
   },
 
-  actions: {
-    submit(object) {
-      get(this, 'submit')(object);
-      set(this, 'tabindex', undefined);
+  handleErrors(object) {
+    let errors = get(object, 'errors');
 
-      let errors = get(object, 'errors');
-      if (errors) {
-        for (let propertyName in errors) {
-          if (isPresent(get(errors, propertyName))) {
-            set(this, 'tabindex', -1);
-            schedule('afterRender', () => this.$().focus());
-            break;
-          }
+    if (errors) {
+      for (let propertyName in errors) {
+        if (isPresent(get(errors, propertyName))) {
+          set(this, 'tabindex', -1);
+          schedule('afterRender', () => this.$().focus());
+          break;
         }
       }
+    }
+  },
+
+  actions: {
+    submit(object) {
+      let promise = get(this, 'submit')(object);
+
+      set(this, 'tabindex', undefined);
+
+      if (promise && typeof promise.finally === 'function') {
+        promise.finally(() => this.handleErrors(object));
+      } else {
+        this.handleErrors(object);
+      }
+
+      return promise;
     }
   }
 });
