@@ -1,1 +1,12 @@
 @import 'gh-fork-ribbon';
+
+.dirty input {
+  border: 1px solid red;
+}
+
+.dirty .form-field--errors {
+  display: block;
+}
+.form-field--errors {
+  display: none;
+}
