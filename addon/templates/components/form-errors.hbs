@@ -1,4 +1,4 @@
-{{#if errors}}
+{{#if showErrors}}
   <div class={{joinedErrorClasses}}>
     {{#each errors as |error index|}}
       <div id={{concat errorId "-" index}} role="alert">
