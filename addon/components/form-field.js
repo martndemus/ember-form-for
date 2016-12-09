@@ -55,10 +55,11 @@ const FormFieldComponent = Component.extend({
     this._super(...arguments);
 
     let fieldClasses = get(this, 'config.fieldClasses');
-    let classNames = get(this, 'classNames');
-    set(this, 'classNames', (classNames || []).concat(fieldClasses));
 
-    get(this, 'classNameBindings').push(`hasErrors:${get(this, 'config.fieldHasErrorClasses')}`);
+    this.classNames = (this.classNames.slice() || []).concat(fieldClasses);
+
+    this.classNameBindings = this.classNameBindings.slice();
+    this.classNameBindings.push(`hasErrors:${get(this, 'config.fieldHasErrorClasses')}`);
 
     [
       'inputClasses',
