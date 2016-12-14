@@ -1,9 +1,13 @@
 import Ember from 'ember';
 import layout from '../templates/components/form-errors';
 
-const { computed, get } = Ember;
+const {
+  Component,
+  computed,
+  get
+} = Ember;
 
-export default Ember.Component.extend({
+export default Component.extend({
   layout,
   tagName: '',
 

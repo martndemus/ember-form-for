@@ -32,7 +32,7 @@ const FormForComponent = Component.extend({
   },
 
   submit: (object) => object.save(),
-  reset:  (object) => object.rollback(),
+  reset: (object) => object.rollback(),
 
   update(object, propertyName, value) {
     set(object, propertyName, value);

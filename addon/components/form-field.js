@@ -4,6 +4,8 @@ import layout from '../templates/components/form-field';
 import { humanize } from '../utils/strings';
 
 const {
+  Component,
+  String: { dasherize },
   assert,
   computed,
   computed: { notEmpty, or, reads },
@@ -11,13 +13,11 @@ const {
   getWithDefault,
   guidFor,
   inject: { service },
+  isEmpty,
   isPresent,
   mixin,
   observer,
-  set,
-  Component,
-  String: { dasherize },
-  isEmpty
+  set
 } = Ember;
 
 const FormFieldComponent = Component.extend({
@@ -76,10 +76,10 @@ const FormFieldComponent = Component.extend({
   didReceiveAttrs() {
     this._super(...arguments);
 
-    assert(`{{form-field}} requires an object property to be passed in`,
+    assert('{{form-field}} requires an object property to be passed in',
            get(this, 'object') != null);
 
-    assert(`{{form-field}} requires the propertyName property to be set`,
+    assert('{{form-field}} requires the propertyName property to be set',
            typeof get(this, 'propertyName') === 'string');
 
     set(this, 'modelName', getWithDefault(this, 'object.modelName', get(this, 'object.constructor.modelName')));
@@ -151,8 +151,8 @@ const FormFieldComponent = Component.extend({
   }),
 
   _nameForObject() {
-    return get(this, 'modelName') ||
-           guidFor(get(this, 'object'));
+    return get(this, 'modelName')
+        || guidFor(get(this, 'object'));
   },
 
   value: computed('rawValue', function() {

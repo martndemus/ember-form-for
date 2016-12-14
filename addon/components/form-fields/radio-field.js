@@ -4,6 +4,7 @@ import layout from '../../templates/components/form-fields/radio-field';
 import { humanize } from '../../utils/strings';
 
 const {
+  Component,
   String: { dasherize },
   computed,
   computed: { or },
@@ -13,7 +14,7 @@ const {
   set
 } = Ember;
 
-const RadioFieldComponent = Ember.Component.extend({
+const RadioFieldComponent = Component.extend({
   tagName: '',
   layout,
 

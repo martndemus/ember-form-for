@@ -1,9 +1,13 @@
 import Ember from 'ember';
 import layout from '../templates/components/form-hint';
 
-const { computed, get } = Ember;
+const {
+  Component,
+  computed,
+  get
+} = Ember;
 
-export default Ember.Component.extend({
+export default Component.extend({
   tagName: '',
   layout,
 

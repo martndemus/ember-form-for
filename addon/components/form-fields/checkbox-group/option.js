@@ -4,6 +4,7 @@ import layout from '../../../templates/components/form-fields/checkbox-group/opt
 import { humanize } from '../../../utils/strings';
 
 const {
+  Component,
   String: { dasherize },
   computed,
   computed: { or },
@@ -12,7 +13,7 @@ const {
   isPresent
 } = Ember;
 
-export default Ember.Component.extend({
+export default Component.extend({
   tagName: '',
   layout,
 

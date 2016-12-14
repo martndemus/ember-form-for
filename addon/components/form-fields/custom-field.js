@@ -1,9 +1,12 @@
 import Ember from 'ember';
 import layout from '../../templates/components/form-fields/custom-field';
 
-const { set } = Ember;
+const {
+  Component,
+  set
+} = Ember;
 
-const CustomFieldComponent = Ember.Component.extend({
+const CustomFieldComponent = Component.extend({
   tagName: '',
   layout,
 
