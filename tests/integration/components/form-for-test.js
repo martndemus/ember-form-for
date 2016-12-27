@@ -156,7 +156,7 @@ test('Reset calls object#rollback by default', function(assert) {
   this.$('button[type="reset"]').click();
 });
 
-test('Form is focused when submit action is triggered and object contains errors', function(assert) {
+test('Form is focused when submit action is triggered and object contains error object containing errors', function(assert) {
   this.set('object', {
     save: () => undefined,
     errors: {
@@ -172,6 +172,56 @@ test('Form is focused when submit action is triggered and object contains errors
 
   run(() => this.$('button[type="submit"]').click());
   assert.equal(document.activeElement, this.$('form').get(0));
+});
+
+test('Form is not focused when submit action is triggered and object contains empty error object', function(assert) {
+  this.set('object', {
+    save: () => undefined,
+    errors: {}
+  });
+
+  this.render(hbs`
+    {{#form-for object as |f|}}
+      {{f.submit}}
+    {{/form-for}}
+  `);
+
+  run(() => this.$('button[type="submit"]').click());
+  assert.notEqual(document.activeElement, this.$('form').get(0));
+});
+
+test('Form is focused when submit action is triggered and object contains errors as array', function(assert) {
+  this.set('object', {
+    save: () => undefined,
+    errors: [
+      { attr: 'foo', message: ['error'] }
+    ]
+  });
+
+  this.render(hbs`
+    {{#form-for object as |f|}}
+      {{f.submit}}
+    {{/form-for}}
+  `);
+
+  run(() => this.$('button[type="submit"]').click());
+  assert.equal(document.activeElement, this.$('form').get(0));
+});
+
+test('Form is not focused when submit action is triggered and object contains errors as empty array', function(assert) {
+  this.set('object', {
+    save: () => undefined,
+    errors: []
+  });
+
+  this.render(hbs`
+    {{#form-for object as |f|}}
+      {{f.submit}}
+    {{/form-for}}
+  `);
+
+  run(() => this.$('button[type="submit"]').click());
+  assert.notEqual(document.activeElement, this.$('form').get(0));
 });
 
 test('I can set and configure custom formClasses', function(assert) {

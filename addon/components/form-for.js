@@ -6,6 +6,7 @@ const {
   get,
   inject: { service },
   isPresent,
+  isArray,
   run: { schedule },
   set
 } = Ember;
@@ -37,15 +38,22 @@ const FormForComponent = Component.extend({
   },
 
   handleErrors(object) {
+    if (this.hasErrors(object)) {
+      set(this, 'tabindex', -1);
+      schedule('afterRender', () => this.$().focus());
+    }
+  },
+
+  hasErrors(object) {
     let errors = get(object, 'errors');
 
-    if (errors) {
-      for (let propertyName in errors) {
-        if (isPresent(get(errors, propertyName))) {
-          set(this, 'tabindex', -1);
-          schedule('afterRender', () => this.$().focus());
-          break;
-        }
+    return isPresent(errors) && (isArray(errors) || this.hasErrorAsObject(errors));
+  },
+
+  hasErrorAsObject(errors) {
+    for (let property in errors) {
+      if (errors.hasOwnProperty(property) && isPresent(get(errors, property))) {
+        return true;
       }
     }
   },
