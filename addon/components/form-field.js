@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import layout from '../templates/components/form-field';
 
-import { humanize } from '../utils/strings';
+import TranslatedInput from '../mixins/translated-input';
 
 const {
   Component,
@@ -20,10 +20,9 @@ const {
   set
 } = Ember;
 
-const FormFieldComponent = Component.extend({
+const FormFieldComponent = Component.extend(TranslatedInput, {
   layout,
 
-  i18n: service(),
   config: service('ember-form-for/config'),
 
   _defaultErrorsProperty: 'errors',
@@ -99,28 +98,6 @@ const FormFieldComponent = Component.extend({
   update(object, propertyName, value) {
     set(object, propertyName, value);
   },
-
-  labelText: computed('propertyName', 'label', function() {
-    let i18n = get(this, 'i18n');
-    let label = get(this, 'label');
-
-    if (isPresent(label)) {
-      return label;
-    } else if (isPresent(i18n)) {
-      return i18n.t(get(this, 'labelI18nKey'));
-    } else {
-      return humanize(get(this, 'propertyName'));
-    }
-  }),
-
-  labelI18nKey: computed('config.i18nKeyPrefix', 'modelName', 'propertyName', function() {
-    return [
-      get(this, 'config.i18nKeyPrefix'),
-      dasherize(get(this, 'modelName') || ''),
-      dasherize(get(this, 'propertyName') || '')
-    ].filter((x) => !!x)
-     .join('.');
-  }),
 
   fieldId: computed('object', 'form', 'propertyName', function() {
     let baseId = get(this, 'form') || get(this, 'elementId');

@@ -9,9 +9,10 @@
       errorId=(concat fieldId "_error")
       errors=errors
       errorClasses=errorClasses)
+  hintText=hintText
   hasErrors=hasErrors
   hint=(component 'form-hint'
-      hint=hint
+      hint=hintText
       hintClasses=hintClasses
       hintId=(concat fieldId "_hint"))
   control=(component control value

@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import layout from '../../templates/components/form-fields/radio-field';
 
-import { humanize } from '../../utils/strings';
+import TranslatedInput from '../../mixins/translated-input';
 
 const {
   Component,
@@ -14,7 +14,7 @@ const {
   set
 } = Ember;
 
-const RadioFieldComponent = Component.extend({
+const RadioFieldComponent = Component.extend(TranslatedInput, {
   tagName: '',
   layout,
 
@@ -28,35 +28,6 @@ const RadioFieldComponent = Component.extend({
   update(object, propertyName, value) {
     set(object, propertyName, value);
   },
-
-  labelText: computed('value', 'label', function() {
-    let i18n = get(this, 'i18n');
-    let label = get(this, 'label');
-
-    if (isPresent(label)) {
-      return label;
-    } else if (isPresent(i18n)) {
-      return i18n.t(get(this, 'labelI18nKey'));
-    } else {
-      return get(this, 'label') || humanize(get(this, 'value'));
-    }
-  }),
-
-  labelI18nKey: computed('config.i18nKeyPrefix', 'modelName', 'propertyName', 'value', function() {
-    let value = get(this, 'value');
-
-    if (isPresent(value)) {
-      value = dasherize(value.toString());
-    }
-
-    return [
-      get(this, 'config.i18nKeyPrefix'),
-      dasherize(get(this, 'modelName') || ''),
-      dasherize(get(this, 'propertyName') || ''),
-      value
-    ].filter((x) => !!x)
-     .join('.');
-  })
 });
 
 RadioFieldComponent.reopenClass({
