@@ -52,6 +52,26 @@ test('If the i18n service is available, compute the label from there', function(
   assert.equal(this.$('label').text().trim(), 'Your name');
 });
 
+test('If the i18n service is available, and changeset has been used, compute the label from there', function(assert) {
+  assert.expect(2);
+  this.registry.register('service:i18n', EmberObject.extend({
+    t(key) {
+      assert.equal(key, 'given-name');
+      return 'Your name';
+    }
+  }));
+
+  this.set('changeset', {
+    _content: this.get('object')
+  });
+
+  this.render(hbs`
+    {{#form-field "givenName" object=changeset as |f|}}{{f.label}}{{/form-field}}
+  `);
+
+  assert.equal(this.$('label').text().trim(), 'Your name');
+});
+
 test('When modelName is present, use it for i18n labels', function(assert) {
   assert.expect(2);
   this.registry.register('service:i18n', EmberObject.extend({

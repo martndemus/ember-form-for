@@ -82,7 +82,7 @@ const FormFieldComponent = Component.extend({
     assert('{{form-field}} requires the propertyName property to be set',
            typeof get(this, 'propertyName') === 'string');
 
-    set(this, 'modelName', getWithDefault(this, 'object.modelName', get(this, 'object.constructor.modelName')));
+    set(this, 'modelName', this.getModelName());
   },
 
   propertyNameDidChange: observer('propertyName', 'errorsProperty', function() {
@@ -153,6 +153,15 @@ const FormFieldComponent = Component.extend({
   _nameForObject() {
     return get(this, 'modelName')
         || guidFor(get(this, 'object'));
+  },
+
+  getModelName() {
+    let name = getWithDefault(this, 'object.modelName', get(this, 'object.constructor.modelName'));
+    if (name) {
+      return name;
+    } else {
+      return get(this, 'object._content.constructor.modelName');
+    }
   },
 
   value: computed('rawValue', function() {
