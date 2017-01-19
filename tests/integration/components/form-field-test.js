@@ -508,3 +508,35 @@ test('I can pass a deserializeValue function', function(assert) {
   run(() => this.$('input').val('John').trigger('change'));
   assert.equal(this.get('object.givenName'), 'JOHN', 'Value is uppercased');
 });
+
+test('By default the objectId is used in as the control name', function(assert) {
+  this.render(hbs`
+    {{#form-field "givenName" object=object as |f|}}
+       {{f.control}}
+    {{/form-field}}
+  `);
+
+  assert.ok(this.$('input').attr('name').match(/^ember\d+\[givenName\]$/));
+});
+
+test('If the object has a modelname it uses that for the control name', function(assert) {
+  this.set('object.constructor', { modelName: 'person' });
+  this.render(hbs`
+    {{#form-field "givenName" object=object as |f|}}
+       {{f.control}}
+    {{/form-field}}
+  `);
+
+  assert.equal(this.$('input').attr('name'), 'person[givenName]');
+});
+
+test('If form was passed it uses that for the control name', function(assert) {
+  this.set('object.constructor', { modelName: 'person' });
+  this.render(hbs`
+    {{#form-field "givenName" object=object form="user" as |f|}}
+       {{f.control}}
+    {{/form-field}}
+  `);
+
+  assert.equal(this.$('input').attr('name'), 'user[givenName]');
+});

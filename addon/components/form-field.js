@@ -151,17 +151,16 @@ const FormFieldComponent = Component.extend({
   }),
 
   _nameForObject() {
-    return get(this, 'modelName')
-        || guidFor(get(this, 'object'));
+    return get(this, 'modelName') || guidFor(get(this, 'object'));
   },
 
   getModelName() {
-    let name = getWithDefault(this, 'object.modelName', get(this, 'object.constructor.modelName'));
-    if (name) {
-      return name;
-    } else {
-      return get(this, 'object._content.constructor.modelName');
-    }
+    let formName = get(this, 'form');
+    let modelName = get(this, 'object.modelName');
+    let constructorName = get(this, 'object.constructor.modelName');
+    let changesetConstructorName = get(this, 'object._content.constructor.modelName');
+
+    return formName || modelName || constructorName || changesetConstructorName;
   },
 
   value: computed('rawValue', function() {

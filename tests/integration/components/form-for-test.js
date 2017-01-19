@@ -28,6 +28,12 @@ test('It renders a form element', function(assert) {
   assert.equal(this.$('form').length, 1);
 });
 
+test('The form attribute sets the id of the form element', function(assert) {
+  this.render(hbs`{{form-for form="the-form"}}`);
+
+  assert.equal(this.$('form').attr('id'), 'the-form');
+});
+
 test('It yields an helper for rendering form components', function(assert) {
   this.render(hbs`
     {{#form-for object as |f|}}
@@ -184,4 +190,14 @@ test('I can set and configure custom formClasses', function(assert) {
   this.render(hbs`{{form-for}}`);
 
   assert.equal(this.$('.custom-form-class-1').length, 1);
+});
+
+test('It passes down the form attribute to fields', function(assert) {
+  this.render(hbs`
+    {{#form-for object form="user" as |f|}}
+      {{f.text-field "name"}}
+    {{/form-for}}
+  `);
+
+  assert.equal(this.$('form input').attr('name'), 'user[name]');
 });

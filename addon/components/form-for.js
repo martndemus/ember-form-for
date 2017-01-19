@@ -17,7 +17,7 @@ const FormForComponent = Component.extend({
 
   config: service('ember-form-for/config'),
 
-  attributeBindings: ['tabindex'],
+  attributeBindings: ['tabindex', 'form:id'],
 
   init() {
     this._super(...arguments);
