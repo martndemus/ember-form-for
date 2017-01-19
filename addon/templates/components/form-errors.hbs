@@ -1,13 +1,17 @@
 {{#if errors}}
-  <div class={{joinedErrorClasses}}>
-    {{#each errors as |error index|}}
-      <div id={{concat errorId "-" index}} role="alert">
-        {{#if error.message}}
-          {{error.message}}
+  {{#form-for/custom-tag tagName=errorsTagName class=joinedErrorClasses}}
+    {{#each limitedErrors as |error index|}}
+      {{#form-for/custom-tag tagName=messageTagName id=(concat errorId "-" index) role="alert"}}
+        {{#if hasBlock}}
+          {{yield error}}
         {{else}}
-          {{error}}
+          {{#if error.message}}
+            {{error.message}}
+          {{else}}
+            {{error}}
+          {{/if}}
         {{/if}}
-      </div>
+      {{/form-for/custom-tag}}
     {{/each}}
-  </div>
+  {{/form-for/custom-tag}}
 {{/if}}
