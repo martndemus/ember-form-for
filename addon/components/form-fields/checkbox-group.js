@@ -3,10 +3,11 @@ import layout from '../../templates/components/form-fields/checkbox-group';
 import { invokeAction } from 'ember-invoke-action';
 
 const {
+  Component,
   get
 } = Ember;
 
-const CheckboxGroupComponent = Ember.Component.extend({
+const CheckboxGroupComponent = Component.extend({
   tagName: '',
   layout,
 

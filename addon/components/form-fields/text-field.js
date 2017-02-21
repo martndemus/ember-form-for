@@ -1,9 +1,12 @@
 import Ember from 'ember';
 import layout from '../../templates/components/form-fields/text-field';
 
-const { set } = Ember;
+const {
+  Component,
+  set
+} = Ember;
 
-const TextFieldComponent = Ember.Component.extend({
+const TextFieldComponent = Component.extend({
   tagName: '',
   layout,
 

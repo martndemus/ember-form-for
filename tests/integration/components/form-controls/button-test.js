@@ -34,7 +34,7 @@ test('The label can also be a block', function(assert) {
 
 test('It can have a label value specified as a positional param', function(assert) {
   this.render(hbs`{{form-controls/button "Click Me"}}`);
-  assert.equal(this.$('button').text().trim(), 'Click Me', `Button has 'Click Me' as label`);
+  assert.equal(this.$('button').text().trim(), 'Click Me', 'Button has "Click Me" as label');
 });
 
 test('Clicking the button triggers the click action', function(assert) {

@@ -58,27 +58,27 @@ test('It renders custom text', function(assert) {
   assert.equal(this.$('button').text().trim(), 'Test', 'Submit button shows label');
 });
 
-test(`it's possible to bind 'formaction'`, function(assert) {
+test("it's possible to bind 'formaction'", function(assert) {
   this.render(hbs`{{form-controls/submit formaction="http://example.com/form"}}`);
   assert.equal(this.$('button').attr('formaction'), 'http://example.com/form', 'attribute formaction is set');
 });
 
-test(`it's possible to bind 'formenctype'`, function(assert) {
+test("it's possible to bind 'formenctype'", function(assert) {
   this.render(hbs`{{form-controls/submit formenctype="text/plain"}}`);
   assert.equal(this.$('button').attr('formenctype'), 'text/plain', 'attribute formenctype is set');
 });
 
-test(`it's possible to bind 'formmethod'`, function(assert) {
+test("it's possible to bind 'formmethod'", function(assert) {
   this.render(hbs`{{form-controls/submit formmethod="POST"}}`);
   assert.equal(this.$('button').attr('formmethod'), 'POST', 'attribute formmethod is set');
 });
 
-test(`it's possible to bind 'formtarget'`, function(assert) {
+test("it's possible to bind 'formtarget'", function(assert) {
   this.render(hbs`{{form-controls/submit formtarget="_blank"}}`);
   assert.equal(this.$('button').attr('formtarget'), '_blank', 'attribute formtarget is set');
 });
 
-test(`it's possible to bind 'formnovalidate'`, function(assert) {
+test("it's possible to bind 'formnovalidate'", function(assert) {
   this.render(hbs`{{form-controls/submit formnovalidate="formnovalidate"}}`);
   assert.equal(this.$('button').attr('formnovalidate'), 'formnovalidate', 'attribute formnovalidate is set');
 });

@@ -2,13 +2,12 @@ import Ember from 'ember';
 import layout from '../templates/components/form-for';
 
 const {
-  computed: { reads },
+  Component,
   get,
   inject: { service },
   isPresent,
-  set,
   run: { schedule },
-  Component
+  set
 } = Ember;
 
 const FormForComponent = Component.extend({
@@ -17,9 +16,8 @@ const FormForComponent = Component.extend({
   tagName: 'form',
 
   config: service('ember-form-for/config'),
-  customFormFields: reads('config.customFormFields'),
 
-  attributeBindings: ['tabindex'],
+  attributeBindings: ['tabindex', 'form:id'],
 
   init() {
     this._super(...arguments);
@@ -32,7 +30,7 @@ const FormForComponent = Component.extend({
   },
 
   submit: (object) => object.save(),
-  reset:  (object) => object.rollback(),
+  reset: (object) => object.rollback(),
 
   update(object, propertyName, value) {
     set(object, propertyName, value);
@@ -45,7 +43,12 @@ const FormForComponent = Component.extend({
       for (let propertyName in errors) {
         if (isPresent(get(errors, propertyName))) {
           set(this, 'tabindex', -1);
-          schedule('afterRender', () => this.$().focus());
+          schedule('afterRender', () => {
+            if (this.isDestroyed || this.isDestroying) {
+              return;
+            }
+            this.$().focus();
+          });
           break;
         }
       }

@@ -1,13 +1,17 @@
 import Ember from 'ember';
 
-const { isArray } = Ember;
+const {
+  A: emberArray,
+  Helper: { helper },
+  isArray
+} = Ember;
 
 export function contains([haystack, needle]) {
   if (isArray(haystack)) {
-    return Ember.A(haystack).includes(needle);
+    return emberArray(haystack).includes(needle);
   } else {
     return haystack === needle;
   }
 }
 
-export default Ember.Helper.helper(contains);
+export default helper(contains);

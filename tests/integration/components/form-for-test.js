@@ -5,7 +5,7 @@ import { initialize as formForInitializer } from 'dummy/instance-initializers/fo
 import config from 'dummy/config/environment';
 import FormForComponent from 'ember-form-for/components/form-for';
 
-const { Component, run } = Ember;
+const { run } = Ember;
 
 moduleForComponent('form-for', 'Integration | Component | {{form-for}}', {
   integration: true,
@@ -22,39 +22,16 @@ moduleForComponent('form-for', 'Integration | Component | {{form-for}}', {
   }
 });
 
-test('I can register my custom for component', function(assert) {
-  config['ember-form-for'] = {
-    customFormFields: [
-      { name: 'my-custom-form-field', component: 'my-custom-form-field' }
-    ]
-  };
-
-  let component = Component.extend({
-    layout: hbs`
-      {{#form-field propertyName object=object label=label as |f|}}
-        {{f.label}}
-        {{f.control}}
-      {{/form-field}}
-    `
-  });
-  component.reopenClass({ positionalParams: ['propertyName'] });
-  this.register('component:my-custom-form-field', component);
-
-  formForInitializer(this.container);
-
-  this.render(hbs`
-    {{#form-for object as |f|}}
-      {{f.my-custom-form-field "name"}}
-    {{/form-for}}
-  `);
-
-  assert.equal(this.$('input').length, 1, 'Input for custom form field is shown');
-});
-
 test('It renders a form element', function(assert) {
   this.render(hbs`{{form-for}}`);
 
   assert.equal(this.$('form').length, 1);
+});
+
+test('The form attribute sets the id of the form element', function(assert) {
+  this.render(hbs`{{form-for form="the-form"}}`);
+
+  assert.equal(this.$('form').attr('id'), 'the-form');
 });
 
 test('It yields an helper for rendering form components', function(assert) {
@@ -213,4 +190,14 @@ test('I can set and configure custom formClasses', function(assert) {
   this.render(hbs`{{form-for}}`);
 
   assert.equal(this.$('.custom-form-class-1').length, 1);
+});
+
+test('It passes down the form attribute to fields', function(assert) {
+  this.render(hbs`
+    {{#form-for object form="user" as |f|}}
+      {{f.text-field "name"}}
+    {{/form-for}}
+  `);
+
+  assert.equal(this.$('form input').attr('name'), 'user[name]');
 });

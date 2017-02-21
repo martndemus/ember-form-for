@@ -1,9 +1,12 @@
 import Ember from 'ember';
 import layout from '../../templates/components/form-fields/select-field';
 
-const { set } = Ember;
+const {
+  Component,
+  set
+} = Ember;
 
-const SelectFieldComponent = Ember.Component.extend({
+const SelectFieldComponent = Component.extend({
   tagName: '',
   layout,
 

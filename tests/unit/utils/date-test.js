@@ -14,7 +14,7 @@ import { module, test } from 'qunit';
 module('Unit | Utility | date-to-string#pad');
 
 test('It pads numbers lower then 10', (assert) => {
-  [0,1,2,3,4,5,6,7,8,9].forEach((n) => assert.equal(pad(n), `0${n}`));
+  [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].forEach((n) => assert.equal(pad(n), `0${n}`));
 });
 
 test('It doesn\'t pad numbers greater or equal then 10', (assert) => {

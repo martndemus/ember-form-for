@@ -2,7 +2,12 @@ import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
-const { Object: EmberObject, guidFor, run } = Ember;
+const {
+  Object: EmberObject,
+  Service,
+  guidFor,
+  run
+} = Ember;
 
 moduleForComponent('form-field', 'Integration | Component | {{form-field}}', {
   integration: true,
@@ -47,6 +52,26 @@ test('If the i18n service is available, compute the label from there', function(
   assert.equal(this.$('label').text().trim(), 'Your name');
 });
 
+test('If the i18n service is available, and changeset has been used, compute the label from there', function(assert) {
+  assert.expect(2);
+  this.registry.register('service:i18n', EmberObject.extend({
+    t(key) {
+      assert.equal(key, 'given-name');
+      return 'Your name';
+    }
+  }));
+
+  this.set('changeset', {
+    _content: this.get('object')
+  });
+
+  this.render(hbs`
+    {{#form-field "givenName" object=changeset as |f|}}{{f.label}}{{/form-field}}
+  `);
+
+  assert.equal(this.$('label').text().trim(), 'Your name');
+});
+
 test('When modelName is present, use it for i18n labels', function(assert) {
   assert.expect(2);
   this.registry.register('service:i18n', EmberObject.extend({
@@ -66,7 +91,7 @@ test('When modelName is present, use it for i18n labels', function(assert) {
 });
 
 test('An arbitrary prefix can be used for the i18n key', function(assert) {
-  this.register('service:ember-form-for/config', Ember.Service.extend({
+  this.register('service:ember-form-for/config', Service.extend({
     i18nKeyPrefix: 'arbitrary'
   }));
 
@@ -102,7 +127,7 @@ test('A custom form control can be specified', function(assert) {
 });
 
 test('It sets the "for" attr of the label and the "id" attr of the input', function(assert) {
-  let expectedId = `test123_givenName`;
+  let expectedId = 'test123_givenName';
   this.render(hbs`
     {{#form-field "givenName" id="test123" object=object as |f|}}
       {{f.label}}{{f.control}}
@@ -113,7 +138,7 @@ test('It sets the "for" attr of the label and the "id" attr of the input', funct
 });
 
 test('It uses the form property as fieldId if possible', function(assert) {
-  let expectedId = `form123_givenName`;
+  let expectedId = 'form123_givenName';
   this.render(hbs`
     {{#form-field "givenName" object=object form="form123" as |f|}}
       {{f.label}}{{f.control}}
@@ -244,7 +269,7 @@ test('It exposes hasErrors', function(assert) {
 });
 
 test('I can configure on which property errors are found', function(assert) {
-  this.register('service:ember-form-for/config', Ember.Service.extend({
+  this.register('service:ember-form-for/config', Service.extend({
     errorsProperty: ['error']
   }));
 
@@ -337,7 +362,7 @@ test('It sets the describedBy of the control to the id of the hint', function(as
       {{f.hint}}
     {{/form-field}}
   `);
-  let expectedId = `test123_givenName_hint`;
+  let expectedId = 'test123_givenName_hint';
   assert.equal(this.$('span').attr('id'), expectedId);
   assert.equal(this.$('input').attr('aria-describedby'), expectedId);
 });
@@ -364,7 +389,7 @@ test('It passes invalid to the control when errors are present', function(assert
 });
 
 test('I can set and configure custom fieldClasses', function(assert) {
-  this.register('service:ember-form-for/config', Ember.Service.extend({
+  this.register('service:ember-form-for/config', Service.extend({
     fieldClasses: ['custom-class-1']
   }));
 
@@ -380,7 +405,7 @@ test('I can set and configure custom fieldClasses', function(assert) {
 });
 
 test('I can set and configure custom inputClasses', function(assert) {
-  this.register('service:ember-form-for/config', Ember.Service.extend({
+  this.register('service:ember-form-for/config', Service.extend({
     inputClasses: ['custom-class-1']
   }));
 
@@ -396,7 +421,7 @@ test('I can set and configure custom inputClasses', function(assert) {
 });
 
 test('I can set and configure custom labelClasses', function(assert) {
-  this.register('service:ember-form-for/config', Ember.Service.extend({
+  this.register('service:ember-form-for/config', Service.extend({
     labelClasses: ['custom-class-1']
   }));
 
@@ -412,7 +437,7 @@ test('I can set and configure custom labelClasses', function(assert) {
 });
 
 test('I can set and configure custom hintClasses', function(assert) {
-  this.register('service:ember-form-for/config', Ember.Service.extend({
+  this.register('service:ember-form-for/config', Service.extend({
     hintClasses: ['custom-class-1']
   }));
 
@@ -428,7 +453,7 @@ test('I can set and configure custom hintClasses', function(assert) {
 });
 
 test('I can set custom errorClasses', function(assert) {
-  this.register('service:ember-form-for/config', Ember.Service.extend({
+  this.register('service:ember-form-for/config', Service.extend({
     errorClasses: ['custom-error-1']
   }));
 
@@ -445,7 +470,7 @@ test('I can set custom errorClasses', function(assert) {
 });
 
 test('I can set a custom fieldHasErrorClasses', function(assert) {
-  this.register('service:ember-form-for/config', Ember.Service.extend({
+  this.register('service:ember-form-for/config', Service.extend({
     fieldHasErrorClasses: ['has-errors-custom']
   }));
 
@@ -482,4 +507,36 @@ test('I can pass a deserializeValue function', function(assert) {
   `);
   run(() => this.$('input').val('John').trigger('change'));
   assert.equal(this.get('object.givenName'), 'JOHN', 'Value is uppercased');
+});
+
+test('By default the objectId is used in as the control name', function(assert) {
+  this.render(hbs`
+    {{#form-field "givenName" object=object as |f|}}
+       {{f.control}}
+    {{/form-field}}
+  `);
+
+  assert.ok(this.$('input').attr('name').match(/^ember\d+\[givenName\]$/));
+});
+
+test('If the object has a modelname it uses that for the control name', function(assert) {
+  this.set('object.constructor', { modelName: 'person' });
+  this.render(hbs`
+    {{#form-field "givenName" object=object as |f|}}
+       {{f.control}}
+    {{/form-field}}
+  `);
+
+  assert.equal(this.$('input').attr('name'), 'person[givenName]');
+});
+
+test('If form was passed it uses that for the control name', function(assert) {
+  this.set('object.constructor', { modelName: 'person' });
+  this.render(hbs`
+    {{#form-field "givenName" object=object form="user" as |f|}}
+       {{f.control}}
+    {{/form-field}}
+  `);
+
+  assert.equal(this.$('input').attr('name'), 'user[givenName]');
 });

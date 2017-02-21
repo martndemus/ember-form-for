@@ -40,3 +40,18 @@ test('Each error has an id set', function(assert) {
   assert.equal(this.$('div[role="alert"]:eq(0)').attr('id'), 'test_error-0');
   assert.equal(this.$('div[role="alert"]:eq(1)').attr('id'), 'test_error-1');
 });
+
+test('errorTagName set the tagname for errors', function(assert) {
+  this.render(hbs`{{form-errors errors=errors errorsTagName="span"}}`);
+  assert.equal(this.$('span').length, 1);
+});
+
+test('messageTagName set the tagname for a message', function(assert) {
+  this.render(hbs`{{form-errors errors=errors messageTagName="span"}}`);
+  assert.equal(this.$('span').length, 2);
+});
+
+test('maxErrors displays max n errors', function(assert) {
+  this.render(hbs`{{form-errors errors=errors maxErrors=1}}`);
+  assert.equal(this.$('div[role="alert"]').length, 1);
+});

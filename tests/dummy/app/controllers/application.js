@@ -1,9 +1,16 @@
 import Ember from 'ember';
 
-const { set, run, RSVP, isEmpty } = Ember;
+const {
+  Controller,
+  Object: EmberObject,
+  set,
+  run,
+  RSVP,
+  isEmpty
+} = Ember;
 
 function createEmptyObject(attrs) {
-  return Ember.Object.create(attrs, {
+  return EmberObject.create(attrs, {
     errors: {}
   });
 }
@@ -12,7 +19,7 @@ function blankUser() {
   return createEmptyObject({ address: createEmptyObject() });
 }
 
-export default Ember.Controller.extend({
+export default Controller.extend({
   submit() {
     return new RSVP.Promise((resolve) => {
       run.later(this, () => {

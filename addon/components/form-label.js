@@ -1,7 +1,11 @@
 import Ember  from 'ember';
 import layout from '../templates/components/form-label';
 
-const FormLabelComponent =  Ember.Component.extend({
+const {
+  Component
+} = Ember;
+
+const FormLabelComponent = Component.extend({
   tagName: 'label',
   layout,
 
