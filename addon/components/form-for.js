@@ -42,7 +42,10 @@ const FormForComponent = Component.extend({
     if (errors) {
       for (let propertyName in errors) {
         if (isPresent(get(errors, propertyName))) {
-          set(this, 'tabindex', -1);
+          if (!(this.isDestroyed || this.isDestroying)) {
+            set(this, 'tabindex', -1);
+          }
+
           schedule('afterRender', () => {
             if (this.isDestroyed || this.isDestroying) {
               return;
