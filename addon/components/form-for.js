@@ -6,7 +6,8 @@ const {
   get,
   inject: { service },
   isPresent,
-  run: { schedule },
+  run: { schedule, next },
+  run,
   set
 } = Ember;
 
@@ -42,9 +43,11 @@ const FormForComponent = Component.extend({
     if (errors) {
       for (let propertyName in errors) {
         if (isPresent(get(errors, propertyName))) {
-          if (!(this.isDestroyed || this.isDestroying)) {
-            set(this, 'tabindex', -1);
-          }
+          run(() => {
+            if (!(this.isDestroyed || this.isDestroying)) {
+              set(this, 'tabindex', -1);
+            }
+          });
 
           schedule('afterRender', () => {
             if (this.isDestroyed || this.isDestroying) {
