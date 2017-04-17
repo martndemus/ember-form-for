@@ -1,0 +1,36 @@
+# Fix line endings in Windows. (runs before repo cloning)
+init:
+  - git config --global core.autocrlf true
+
+environment:
+  nodejs_version: "5.0"
+  matrix:
+    - ember_try_scenario: ember-beta
+    - ember_try_scenario: ember-canary
+
+# Install scripts. (runs after repo cloning)
+install:
+  # Get the latest stable version of Node.js or io.js
+  - ps: Install-Product node $env:nodejs_version
+  # Install PhantomJS
+  - cinst PhantomJS -y
+  # install modules
+  - npm install -g bower
+  - npm install
+  - bower install
+  - del testem.json
+  - copy testem.windows.json testem.json
+
+# Post-install test scripts.
+test_script:
+  # Output useful info for debugging.
+  - node --version
+  - npm --version
+  # run tests
+  - ember try $env:ember_try_scenario
+
+# Don't actually build.
+build: off
+
+# Set build version format here instead of in the admin panel.
+version: "{build}"
