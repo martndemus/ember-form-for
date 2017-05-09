@@ -56,13 +56,22 @@ const FormFieldComponent = Component.extend({
 
     let concatenatedProperties = get(this, 'concatenatedProperties');
     let fieldClasses = get(this, 'config.fieldClasses');
+    let classNames = this.classNames.compact();
+    let classNameBindings = this.classNameBindings.compact();
 
-    this.classNames = this.classNames.concat(fieldClasses);
-    this.classNameBindings = this.classNameBindings.slice();
+    this.classNames = classNames.concat(fieldClasses);
+    this.classNameBindings = classNameBindings.slice();
     this.classNameBindings.push(`hasErrors:${get(this, 'config.fieldHasErrorClasses')}`);
 
     concatenatedProperties.forEach((type) => {
-      set(this, type, (get(this, type) || []).concat(get(this, `config.${type}`)));
+      let result = get(this, `config.${type}`);
+      let values = get(this, type) || [];
+
+      if (result) {
+        set(this, type, values.concat(result));
+      } else {
+        set(this, type, values);
+      }
     });
 
     this.propertyNameDidChange();
