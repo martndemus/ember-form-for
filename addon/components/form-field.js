@@ -48,13 +48,19 @@ const FormFieldComponent = Component.extend({
     'hintClasses',
     'errorClasses'
   ],
+  configClasses: [
+    'inputClasses',
+    'labelClasses',
+    'hintClasses',
+    'errorClasses'
+  ],
 
   control: 'one-way-input',
 
   init() {
     this._super(...arguments);
 
-    let concatenatedProperties = get(this, 'concatenatedProperties');
+    let configClasses = get(this, 'configClasses');
     let fieldClasses = get(this, 'config.fieldClasses');
     let classNames = this.classNames.compact();
     let classNameBindings = this.classNameBindings.compact();
@@ -63,7 +69,7 @@ const FormFieldComponent = Component.extend({
     this.classNameBindings = classNameBindings.slice();
     this.classNameBindings.push(`hasErrors:${get(this, 'config.fieldHasErrorClasses')}`);
 
-    concatenatedProperties.forEach((type) => {
+    configClasses.forEach((type) => {
       let result = get(this, `config.${type}`);
       let values = get(this, type) || [];
 
