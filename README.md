@@ -241,6 +241,7 @@ This form-field groups `radio-field`s into a single form-field. It can be used l
 ```
 
 Where `groupOptions` is an array of options, containing a hash of the form `{ label, value }`.
+A valid configuration migh be `[{ label: 'Yes', value: true }, { label: 'No', value: false }]`.
 
 This form-field can also be used in block form, to customize the internal `radio-field` component.
 
