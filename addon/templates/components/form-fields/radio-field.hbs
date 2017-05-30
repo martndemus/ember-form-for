@@ -29,6 +29,8 @@
     }}
     {{f.labelText}}
   {{/f.label}}
-  {{f.errors}}
+  {{#unless hideErrors}}
+    {{f.errors}}
+  {{/unless}}
   {{f.hint}}
 {{/form-field}}
