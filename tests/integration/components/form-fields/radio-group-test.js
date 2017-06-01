@@ -26,6 +26,13 @@ test('It renders a list of radios with label for each option', function(assert) 
   assert.equal(this.$('ul li:first-child label').text().trim(), 'Male');
 });
 
+test('It renders a list of radios with label for each option where each option is a string', function(assert) {
+  this.set('options', ['male', 'female', 'unknown']);
+  this.render(hbs`{{form-fields/radio-group "gender" object=object options=options}}`);
+  assert.equal(this.$('ul li label input[type="radio"]').length, 3);
+  assert.equal(this.$('ul li:first-child label').text().trim(), 'Male');
+});
+
 test('It renders a list of radios with custom labels for each option', function(assert) {
   this.set('options', [{ value: 'male', label: 'Man' }, { value: 'female', label: 'Woman' }, { value: 'unknown', label: 'Unknown' }]);
   this.render(hbs`{{form-fields/radio-group "gender" object=object options=options}}`);
