@@ -1,4 +1,4 @@
-{{yield (hash
+{{#with (hash
   object=object
   propertyName=propertyName
   labelText=labelText
@@ -22,8 +22,52 @@
       classNames=inputClasses
       required=required
       invalid=(if errors true false)
-      aria-invalid=(if  errors "true" "false")
+      aria-invalid=(if errors "true" "false")
       aria-describedby=describedByValue
       form=form
-      update=(action "processUpdate" object propertyName))
-)}}
+      update=(action "processUpdate" object propertyName)
+      accept=accept
+      accesskey=accesskey
+      autocomplete=autocomplete
+      autofocus=autofocus
+      autosave=autosave
+      cols=cols
+      dir=dir
+      disabled=disabled
+      groupLabelPath=groupLabelPath
+      hidden=hidden
+      includeBlank=includeBlank
+      inputmode=inputmode
+      lang=lang
+      list=list
+      max=max
+      maxlength=maxlength
+      min=min
+      minlength=minlength
+      multiple=multiple
+      option=option
+      optionLabelPath=optionLabelPath
+      optionTargetPath=optionTargetPath
+      optionValuePath=optionValuePath
+      options=options
+      pattern=pattern
+      placeholder=placeholder
+      prompt=prompt
+      promptIsSelectable=promptIsSelectable
+      readonly=readonly
+      required=required
+      rows=rows
+      search=search
+      size=size
+      spellcheck=spellcheck
+      step=step
+      tabindex=tabindex
+      title=title
+      wrap=wrap)
+) as |f|}}
+  {{#if hasBlock}}
+    {{yield f}}
+  {{else}}
+    {{partial fieldTemplate}}
+  {{/if}}
+{{/with}}
