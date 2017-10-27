@@ -1,0 +1,10 @@
+{{#if component}}
+  {{component component f=f}}
+{{else if hasBlock}}
+  {{yield f}}
+{{else}}
+  {{f.label}}
+  {{f.control}}
+  {{f.errors}}
+  {{f.hint}}
+{{/if}}

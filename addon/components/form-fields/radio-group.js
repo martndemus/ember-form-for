@@ -1,22 +1,9 @@
-import Ember from 'ember';
-import layout from '../../templates/components/form-fields/radio-group';
+import FormField from '../form-field';
 
-const {
-  Component,
-  set
-} = Ember;
+export default FormField.extend({
+  tagName: 'fieldset',
 
-const RadioGroupComponent = Component.extend({
-  tagName: '',
-  layout,
+  classNames: 'radio-group',
 
-  update() {
-    set(...arguments);
-  }
+  fieldTemplate: 'form-fields/radio-group'
 });
-
-RadioGroupComponent.reopenClass({
-  positionalParams: ['propertyName']
-});
-
-export default RadioGroupComponent;

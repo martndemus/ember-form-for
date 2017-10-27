@@ -1,0 +1,15 @@
+{{form-label labelText required=required tagName="legend"}}
+
+<ul>
+  {{#each options as |option|}}
+    {{form-fields/radio-field propertyName option
+        disabled=disabled
+        tagName="li"
+        object=object
+        update=(action update)
+    }}
+  {{/each}}
+</ul>
+
+{{f.errors}}
+{{f.hint}}

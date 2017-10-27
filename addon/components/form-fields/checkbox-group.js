@@ -1,15 +1,15 @@
 import Ember from 'ember';
-import layout from '../../templates/components/form-fields/checkbox-group';
+import FormField from '../form-field';
 import { invokeAction } from 'ember-invoke-action';
 
-const {
-  Component,
-  get
-} = Ember;
+const { get } = Ember;
 
-const CheckboxGroupComponent = Component.extend({
-  tagName: '',
-  layout,
+export default FormField.extend({
+  tagName: 'fieldset',
+
+  classNames: 'fieldset',
+
+  fieldTemplate: 'form-fields/checkbox-group',
 
   actions: {
     updateSelection(value, object, propertyName, include) {
@@ -24,9 +24,3 @@ const CheckboxGroupComponent = Component.extend({
     }
   }
 });
-
-CheckboxGroupComponent.reopenClass({
-  positionalParams: ['propertyName']
-});
-
-export default CheckboxGroupComponent;

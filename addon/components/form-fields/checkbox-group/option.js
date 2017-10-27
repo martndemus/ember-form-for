@@ -1,10 +1,9 @@
 import Ember from 'ember';
-import layout from '../../../templates/components/form-fields/checkbox-group/option';
+import FormField from '../../form-field';
 
 import { humanize } from '../../../utils/strings';
 
 const {
-  Component,
   String: { dasherize },
   computed,
   computed: { or },
@@ -13,9 +12,12 @@ const {
   isPresent
 } = Ember;
 
-export default Component.extend({
-  tagName: '',
-  layout,
+export default FormField.extend({
+  tagName: 'li',
+
+  fieldTemplate: 'form-fields/checkbox-group/option',
+
+  control: 'one-way-checkbox',
 
   config: service('ember-form-for/config'),
 

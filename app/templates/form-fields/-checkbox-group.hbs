@@ -1,0 +1,20 @@
+{{form-label labelText required=required tagName="legend"}}
+
+<ul>
+  {{#each options as |option|}}
+    {{option}}
+    {{form-fields/checkbox-group/option
+        object=object
+        propertyName=propertyName
+        option=option
+        update=(action "updateSelection" option)
+        disabled=disabled
+        dir=dir
+        lang=lang
+        value=option
+    }}
+  {{/each}}
+</ul>
+
+{{f.errors}}
+{{f.hint}}

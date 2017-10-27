@@ -1,24 +1,9 @@
-import Ember from 'ember';
-import layout from '../../templates/components/form-fields/checkbox-field';
+import FormField from '../form-field';
 
-const {
-  Component,
-  set
-} = Ember;
+export default FormField.extend({
+  classNames: 'checkbox-field',
 
-const CheckboxFieldComponent = Component.extend({
-  tagName: '',
-  layout,
+  fieldTemplate: 'form-fields/checkbox-field',
 
-  control: 'one-way-checkbox',
-
-  update(object, propertyName, value) {
-    set(object, propertyName, value);
-  }
+  control: 'one-way-checkbox'
 });
-
-CheckboxFieldComponent.reopenClass({
-  positionalParams: ['propertyName']
-});
-
-export default CheckboxFieldComponent;

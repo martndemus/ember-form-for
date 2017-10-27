@@ -1,32 +1,24 @@
 import Ember from 'ember';
-import layout from '../../templates/components/form-fields/radio-field';
+import FormField from '../form-field';
 
 import { humanize } from '../../utils/strings';
 
 const {
-  Component,
   String: { dasherize },
   computed,
   computed: { or },
   get,
-  inject: { service },
-  isPresent,
-  set
+  isPresent
 } = Ember;
 
-const RadioFieldComponent = Component.extend({
-  tagName: '',
-  layout,
+const RadioFieldComponent = FormField.extend({
+  classNames: 'radio-field',
+
+  fieldTemplate: 'form-fields/radio-field',
 
   control: 'one-way-radio',
 
-  config: service('ember-form-for/config'),
-
   modelName: or('object.modelName', 'object.constructor.modelName'),
-
-  update(object, propertyName, value) {
-    set(object, propertyName, value);
-  },
 
   labelText: computed('value', 'label', 'i18n.locale', function() {
     let i18n = get(this, 'i18n');
@@ -59,7 +51,7 @@ const RadioFieldComponent = Component.extend({
 });
 
 RadioFieldComponent.reopenClass({
-  positionalParams: ['propertyName', 'value']
+  positionalParams: ['propertyName', 'option']
 });
 
 export default RadioFieldComponent;

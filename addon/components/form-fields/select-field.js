@@ -1,20 +1,11 @@
-import Ember from 'ember';
-import layout from '../../templates/components/form-fields/select-field';
+import FormField from '../form-field';
 
-const {
-  Component,
-  set
-} = Ember;
+const SelectFieldComponent = FormField.extend({
+  classNames: 'select-field',
 
-const SelectFieldComponent = Component.extend({
-  tagName: '',
-  layout,
+  fieldTemplate: 'form-fields/base-layout',
 
-  control: 'one-way-select',
-
-  update(object, propertyName, value) {
-    set(object, propertyName, value);
-  }
+  control: 'one-way-select'
 });
 
 SelectFieldComponent.reopenClass({

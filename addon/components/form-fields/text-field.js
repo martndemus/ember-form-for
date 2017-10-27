@@ -1,24 +1,9 @@
-import Ember from 'ember';
-import layout from '../../templates/components/form-fields/text-field';
+import FormField from '../form-field';
 
-const {
-  Component,
-  set
-} = Ember;
+export default FormField.extend({
+  classNames: 'text-field',
 
-const TextFieldComponent = Component.extend({
-  tagName: '',
-  layout,
+  fieldTemplate: 'form-fields/base-layout',
 
-  control: 'one-way-text',
-
-  update(object, propertyName, value) {
-    set(object, propertyName, value);
-  }
+  control: 'one-way-text'
 });
-
-TextFieldComponent.reopenClass({
-  positionalParams: ['propertyName']
-});
-
-export default TextFieldComponent;

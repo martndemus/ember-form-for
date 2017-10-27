@@ -1,24 +1,9 @@
-import Ember from 'ember';
-import layout from '../../templates/components/form-fields/textarea-field';
+import FormField from '../form-field';
 
-const {
-  Component,
-  set
-} = Ember;
+export default FormField.extend({
+  classNames: 'textarea-field',
 
-const TextareaFieldComponent = Component.extend({
-  tagName: '',
-  layout,
+  fieldTemplate: 'form-fields/base-layout',
 
-  control: 'one-way-textarea',
-
-  update(object, propertyName, value) {
-    set(object, propertyName, value);
-  }
+  control: 'one-way-textarea'
 });
-
-TextareaFieldComponent.reopenClass({
-  positionalParams: ['propertyName']
-});
-
-export default TextareaFieldComponent;

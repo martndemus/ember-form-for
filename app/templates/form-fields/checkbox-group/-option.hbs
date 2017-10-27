@@ -1,0 +1,9 @@
+{{#f.label}}
+  {{f.control (one-way-select/contains (get object propertyName) option)
+      disabled=disabled
+      dir=dir
+      lang=lang
+      value=option
+  }}
+  {{labelText}}
+{{/f.label}}
