@@ -28,7 +28,7 @@ const RadioFieldComponent = Component.extend({
     set(object, propertyName, value);
   },
 
-  labelText: computed('value', 'label', function() {
+  labelText: computed('value', 'label', 'i18n.locale', function() {
     let i18n = get(this, 'i18n');
     let label = get(this, 'label');
 
