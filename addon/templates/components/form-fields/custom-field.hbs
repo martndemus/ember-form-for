@@ -10,39 +10,43 @@
     hint=hint
     label=label
     control=control
+    focusIn=fieldFocusIn
     update=(action update) as |f|}}
   {{#if component}}
     {{component component f=f}}
   {{else if hasBlock}}
     {{yield f}}
   {{else}}
-    {{f.label required=required}}
-    {{f.control
-        accesskey=accesskey
-        autocomplete=autocomplete
-        autofocus=autofocus
-        autosave=autosave
-        dir=dir
-        disabled=disabled
-        hidden=hidden
-        inputmode=inputmode
-        lang=lang
-        list=list
-        max=max
-        maxlength=maxlength
-        min=min
-        minlength=minlength
-        multiple=multiple
-        pattern=pattern
-        placeholder=placeholder
-        readonly=readonly
-        required=required
-        size=size
-        spellcheck=spellcheck
-        step=step
-        tabindex=tabindex
-        title=title
-    }}
+    {{#unless errorsOnly}}
+      {{f.label required=required}}
+      {{f.control
+          accesskey=accesskey
+          autocomplete=autocomplete
+          autofocus=autofocus
+          autosave=autosave
+          dir=dir
+          disabled=disabled
+          hidden=hidden
+          inputmode=inputmode
+          lang=lang
+          list=list
+          max=max
+          maxlength=maxlength
+          min=min
+          minlength=minlength
+          multiple=multiple
+          pattern=pattern
+          placeholder=placeholder
+          readonly=readonly
+          required=required
+          size=size
+          spellcheck=spellcheck
+          step=step
+          tabindex=tabindex
+          title=title
+          propertyName=propertyName
+      }}
+    {{/unless}}
     {{f.errors}}
     {{f.hint}}
   {{/if}}
