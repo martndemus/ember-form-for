@@ -7,6 +7,6 @@ export function initialize(app) {
 
 export default {
   name: 'ember-form-for-i18n',
-  initialize: initialize,
+  initialize
 };
 
