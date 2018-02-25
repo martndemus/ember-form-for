@@ -12,6 +12,4 @@ dependencies:
   cache_directories:
     - ~/.yarn-cache
   override:
-    - yarn global add bower --no-progress
     - yarn install --no-progress
-    - bower install
