@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import registerI18n from '../../../support/register-i18n';
 
 const { Object: EmberObject } = Ember;
 
@@ -17,7 +18,7 @@ test('It renders a label and a checkbox', function(assert) {
 
 test('The label is computed from the i18n service if available', function(assert) {
   this.set('object', { accepted: true });
-  this.registry.register('service:i18n', EmberObject.extend({
+  registerI18n(this, EmberObject.extend({
     t(key) {
       assert.equal(key, 'accepted');
       return 'Accept Terms of Service';

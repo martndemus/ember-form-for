@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import registerI18n from '../../support/register-i18n';
 
 const {
   Object: EmberObject,
@@ -38,7 +39,7 @@ test('It adds a label based on propertyName', function(assert) {
 
 test('If the i18n service is available, compute the label from there', function(assert) {
   assert.expect(2);
-  this.registry.register('service:i18n', EmberObject.extend({
+  registerI18n(this, EmberObject.extend({
     t(key) {
       assert.equal(key, 'given-name');
       return 'Your name';
@@ -54,7 +55,7 @@ test('If the i18n service is available, compute the label from there', function(
 
 test('If the i18n service is available, and changeset has been used, compute the label from there', function(assert) {
   assert.expect(2);
-  this.registry.register('service:i18n', EmberObject.extend({
+  registerI18n(this, EmberObject.extend({
     t(key) {
       assert.equal(key, 'given-name');
       return 'Your name';
@@ -74,7 +75,7 @@ test('If the i18n service is available, and changeset has been used, compute the
 
 test('When modelName is present, use it for i18n labels', function(assert) {
   assert.expect(2);
-  this.registry.register('service:i18n', EmberObject.extend({
+  registerI18n(this, EmberObject.extend({
     t(key) {
       assert.equal(key, 'user.given-name');
       return 'Your name';
@@ -96,7 +97,7 @@ test('An arbitrary prefix can be used for the i18n key', function(assert) {
   }));
 
   assert.expect(2);
-  this.registry.register('service:i18n', EmberObject.extend({
+  registerI18n(this, EmberObject.extend({
     t(key) {
       assert.equal(key, 'arbitrary.given-name');
       return 'Your name';

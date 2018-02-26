@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import registerI18n from '../../../support/register-i18n';
 
 const { Object: EmberObject, run } = Ember;
 
@@ -55,7 +56,7 @@ test('Clicking a checkbox updates the property', function(assert) {
 
 test('The labels are computed from the i18n service if available', function(assert) {
   assert.expect(2);
-  this.registry.register('service:i18n', EmberObject.extend({
+  registerI18n(this, EmberObject.extend({
     t(key) {
       return key;
     }

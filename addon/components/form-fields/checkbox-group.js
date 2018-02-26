@@ -14,7 +14,7 @@ const CheckboxGroupComponent = Component.extend({
   actions: {
     updateSelection(value, object, propertyName, include) {
       let selection = get(object, propertyName);
-      if (include && !selection.contains(value)) {
+      if (include && !selection.includes(value)) {
         selection.pushObject(value);
       } else {
         selection.removeObject(value);
