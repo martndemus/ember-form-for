@@ -53,13 +53,15 @@ const FormFieldComponent = Component.extend({
     this.classNameBindings = this.classNameBindings.slice();
     this.classNameBindings.push(`hasErrors:${get(this, 'config.fieldHasErrorClasses')}`);
 
-    [
-      'inputClasses',
-      'labelClasses',
-      'hintClasses',
-      'errorClasses'
-    ].forEach((type) => {
-      set(this, type, (get(this, type) || []).concat(get(this, `config.${type}`)));
+    const cssClasses = {
+      'inputClasses' : 'joinedInputClasses',
+      'labelClasses' : 'joinedLabelClasses',
+      'hintClasses' : 'joinedHintClasses',
+      'errorClasses' : 'joinedErrorClasses',
+    });
+
+    Object.keys(cssClasses).forEach((type) => {
+      set(this, cssClasses[type], (get(this, type) || []).concat(get(this, `config.${type}`)));
     });
 
     this.propertyNameDidChange();
