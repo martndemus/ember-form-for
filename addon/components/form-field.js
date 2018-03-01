@@ -41,13 +41,6 @@ const FormFieldComponent = Component.extend({
 
   classNameBindings: [],
 
-  concatenatedProperties: [
-    'inputClasses',
-    'labelClasses',
-    'hintClasses',
-    'errorClasses'
-  ],
-
   control: 'one-way-input',
 
   init() {
