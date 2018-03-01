@@ -10,6 +10,7 @@
   errors=(component 'form-errors'
       errorId=(concat fieldId "_error")
       errors=errors
+      showErrors=showErrors
       errorClasses=errorClasses)
   hasErrors=hasErrors
   hint=(component 'form-hint'
@@ -21,8 +22,8 @@
       name=fieldName
       classNames=inputClasses
       required=required
-      invalid=(if errors true false)
-      aria-invalid=(if  errors "true" "false")
+      invalid=showErrors
+      aria-invalid=(if showErrors "true" "false")
       aria-describedby=describedByValue
       form=form
       update=(action "processUpdate" object propertyName))

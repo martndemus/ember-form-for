@@ -1,4 +1,4 @@
-{{#if errors}}
+{{#if showErrors}}
   {{#form-for/custom-tag tagName=errorsTagName class=joinedErrorClasses}}
     {{#each limitedErrors as |error index|}}
       {{#form-for/custom-tag tagName=messageTagName id=(concat errorId "-" index) role="alert"}}

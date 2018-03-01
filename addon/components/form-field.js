@@ -58,7 +58,7 @@ const FormFieldComponent = Component.extend({
     this.classNames = this.classNames.concat(fieldClasses);
 
     this.classNameBindings = this.classNameBindings.slice();
-    this.classNameBindings.push(`hasErrors:${get(this, 'config.fieldHasErrorClasses')}`);
+    this.classNameBindings.push(`showErrors:${get(this, 'config.fieldHasErrorClasses')}`);
 
     [
       'inputClasses',
@@ -94,6 +94,7 @@ const FormFieldComponent = Component.extend({
       hasErrors: notEmpty(errorsPath)
     });
   }),
+  showErrors: reads('hasErrors'),
 
   update(object, propertyName, value) {
     set(object, propertyName, value);

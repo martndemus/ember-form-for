@@ -4,12 +4,15 @@ import layout from '../templates/components/form-errors';
 const {
   Component,
   computed,
+  computed: { notEmpty },
   get
 } = Ember;
 
 export default Component.extend({
   layout,
   tagName: '',
+
+  showErrors: notEmpty('errors'),
 
   limitedErrors: computed('errors.[]', 'maxErrors', function() {
     let errors = get(this, 'errors');
