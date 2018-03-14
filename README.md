@@ -160,7 +160,6 @@ The default form controls are:
  - checkbox-field
  - color-field
  - date-field
- - datetime-field
  - datetime-local-field
  - email-field
  - file-field
