@@ -1,0 +1,17 @@
+version: 2
+general:
+  branches:
+    ignore:
+      - gh-pages
+jobs:
+  build:
+    docker:
+      - image: circleci/node:8.9.4-browsers
+    steps:
+      - checkout
+      - run:
+          name: Yarn Install
+          command: yarn install --non-interactive
+      - run:
+          name: Run Tests
+          command: npm test
