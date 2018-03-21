@@ -60,20 +60,22 @@ const FormFieldComponent = Component.extend({
     this.classNameBindings = this.classNameBindings.slice();
     this.classNameBindings.push(`hasErrors:${get(this, 'config.fieldHasErrorClasses')}`);
 
-    [
-      'inputClasses',
-      'labelClasses',
-      'hintClasses',
-      'errorClasses'
-    ].forEach((type) => {
-      set(this, type, (get(this, type) || []).concat(get(this, `config.${type}`)));
-    });
-
     this.propertyNameDidChange();
   },
 
   didReceiveAttrs() {
     this._super(...arguments);
+
+    ['inputClasses', 'labelClasses', 'hintClasses', 'errorClasses'].forEach(
+      (type) => {
+        set(
+          this,
+          `_${type}`,
+          (get(this, type) || []).concat(get(this, `config.${type}`))
+        );
+      }
+    );
+
 
     assert('{{form-field}} requires an object property to be passed in',
            get(this, 'object') != null);
