@@ -76,7 +76,6 @@ const FormFieldComponent = Component.extend({
       }
     );
 
-
     assert('{{form-field}} requires an object property to be passed in',
            get(this, 'object') != null);
 
