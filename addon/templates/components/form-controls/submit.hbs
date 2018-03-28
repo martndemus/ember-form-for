@@ -1,0 +1,9 @@
+{{#if hasBlock}}
+  {{yield this _stateObject}}
+{{else}}
+  {{#if activePromise.isPending}}
+    {{pending}}
+  {{else}}
+    {{default}}
+  {{/if}}
+{{/if}}

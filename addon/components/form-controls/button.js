@@ -20,6 +20,7 @@ const Button = Component.extend(DynamicAttributeBindings, {
 
     let type = get(this, 'type');
     let buttonClasses = get(this, `config.${type}Classes`);
+    // @todo: this is bad practice, it should be fixed
     let classNames = get(this, 'classNames');
     set(this, 'classNames', (classNames || []).concat(buttonClasses));
   }

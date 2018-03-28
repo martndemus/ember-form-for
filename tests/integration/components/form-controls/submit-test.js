@@ -29,7 +29,7 @@ test('Clicking the submit button triggers the "action" action', function(assert)
 });
 
 test('Clicking the submit button supports returning a promise', function(assert) {
-  assert.expect(3);
+  assert.expect(4);
   let promise = new RSVP.Promise((resolve) => {
     run.later(this, () => {
       resolve();
@@ -44,6 +44,7 @@ test('Clicking the submit button supports returning a promise', function(assert)
 
   $button.trigger('click');
   assert.equal($button.text().trim(), 'Submitting...', 'Button state changes on pending promise');
+  assert.equal(true, $button[0].disabled, 'Button should be disabled when promise is pending');
 
   return wait().then(() => {
     promise.then(() => {
