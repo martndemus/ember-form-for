@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import layout from '../../templates/components/form-fields/checkbox-group';
-import { invokeAction } from 'ember-invoke-action';
 
 const {
   Component,
@@ -20,7 +19,9 @@ const CheckboxGroupComponent = Component.extend({
         selection.removeObject(value);
       }
 
-      invokeAction(this, 'update', object, propertyName, selection);
+      if (this.get('update') !== undefined) {
+        this.get('update')(object, propertyName, selection);
+      }
     }
   }
 });
