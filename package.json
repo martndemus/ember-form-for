@@ -20,7 +20,6 @@
   "dependencies": {
     "ember-cli-babel": "^5.1.7",
     "ember-cli-htmlbars": "^1.0.10",
-    "ember-invoke-action": "1.4.0",
     "ember-one-way-controls": "https://github.com/marxsk/ember-one-way-controls.git",
     "ember-runtime-enumerable-includes-polyfill": "^2.0.0"
   },
