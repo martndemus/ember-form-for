@@ -2,17 +2,18 @@ import Ember from 'ember';
 const { getOwner } = Ember;
 
 export function initialize(app) {
-  let i18n = null;
-
-  try {
-    i18n = getOwner(app).lookup('service:i18n');
-  } catch(e) {
-    i18n = app.__container__.lookup('service:i18n');
+  // HACK: This can be undefined in the FastBoot environment.
+  const owner = getOwner(app) || app.__container__;
+  if (!owner) {
+    return;
   }
 
-  if (i18n) {
-    app.inject('component', 'i18n', 'service:i18n');
+  const i18n = owner.lookup('service:i18n');
+  if (!i18n) {
+    return;
   }
+
+  app.inject('component', 'i18n', 'service:i18n');
 }
 
 export default {
