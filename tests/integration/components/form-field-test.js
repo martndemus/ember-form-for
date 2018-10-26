@@ -350,7 +350,7 @@ test('It can yield the labelText', function(assert) {
 test('It can yield a hint', function(assert) {
   this.render(hbs`
     {{#form-field "givenName" object=object hint="This is a hint" as |f|}}
-      {{f.hint}}
+      {{f.hintText}}
     {{/form-field}}
   `);
   assert.equal(this.$('span').text().trim(), 'This is a hint');

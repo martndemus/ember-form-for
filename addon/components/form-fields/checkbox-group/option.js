@@ -2,6 +2,7 @@ import Ember from 'ember';
 import layout from '../../../templates/components/form-fields/checkbox-group/option';
 
 import { humanize } from '../../../utils/strings';
+import TranslatedInput from '../../mixins/translated-input';
 
 const {
   Component,
@@ -13,7 +14,7 @@ const {
   isPresent
 } = Ember;
 
-export default Component.extend({
+export default Component.extend(TranslatedInput, {
   tagName: '',
   layout,
 

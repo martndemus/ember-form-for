@@ -1,7 +1,8 @@
 import Ember from 'ember';
 import layout from '../../templates/components/form-fields/radio-field';
 
-import { humanize } from '../../utils/strings';
+import { humanize } from '../utils/strings';
+import TranslatedInput from '../../mixins/translated-input';
 
 const {
   Component,
@@ -14,7 +15,7 @@ const {
   set
 } = Ember;
 
-const RadioFieldComponent = Component.extend({
+const RadioFieldComponent = Component.extend(TranslatedInput, {
   tagName: '',
   layout,
 

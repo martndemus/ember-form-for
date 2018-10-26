@@ -2,6 +2,7 @@ import Ember from 'ember';
 import layout from '../templates/components/form-field';
 
 import { humanize } from '../utils/strings';
+import TranslatedInput from '../mixins/translated-input';
 
 const {
   Component,
@@ -20,7 +21,7 @@ const {
   set
 } = Ember;
 
-const FormFieldComponent = Component.extend({
+const FormFieldComponent = Component.extend(TranslatedInput, {
   layout,
 
   config: service('ember-form-for/config'),
