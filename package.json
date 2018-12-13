@@ -18,7 +18,7 @@
     "test": "ember try:each"
   },
   "dependencies": {
-    "ember-cli-babel": "6.12.0",
+    "ember-cli-babel": "^6.12.0",
     "ember-cli-htmlbars": "^2.0.3",
     "ember-one-way-controls": "https://github.com/marxsk/ember-one-way-controls.git",
     "ember-runtime-enumerable-includes-polyfill": "^2.0.0"
