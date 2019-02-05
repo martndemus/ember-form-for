@@ -44,7 +44,7 @@ ember install ember-form-for
 
   {{f.email-field "emailAddress"}}
   {{f.text-field "userName"}}
-  {{f.password-field "password" hint="Must be atleast six characters long and include a capital letter"}}
+  {{f.password-field "password" hint="Must be at least six characters long and include a capital letter"}}
 
   {{f.checkbox-field "terms" label="I agree to the Terms of Service"}}
 
