@@ -22,7 +22,7 @@ Router.map(function() {
     });
 
     this.route('examples', function() {
-      this.route('basic');
+      this.route('simple');
       this.route('complex');
       this.route('ember-changeset');
       this.route('i18n');
