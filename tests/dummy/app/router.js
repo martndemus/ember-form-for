@@ -20,6 +20,13 @@ Router.map(function() {
       this.route('i18n');
       this.route('ember-changeset');
     });
+
+    this.route('examples', function() {
+      this.route('basic');
+      this.route('complex');
+      this.route('ember-changeset');
+      this.route('i18n');
+    });
   });
 });
 
