@@ -1,0 +1,29 @@
+{{#docs-viewer as |viewer|}}
+  {{#viewer.nav as |nav|}}
+    {{nav.section 'Introduction'}}
+    {{nav.item 'What is FormFor?' 'docs.index'}}
+    {{nav.item 'Usage' 'docs.usage'}}
+    {{nav.item 'Quickstart' 'docs.quickstart'}}
+    {{!-- {{nav.item 'Patterns' 'docs.patterns'}}
+    {{nav.item 'Deploying' 'docs.deploying'}} --}}
+
+    {{nav.section 'Components'}}
+    {{nav.item '{{form-for}}' 'docs.components.form-for'}}
+    {{nav.item '{{form-fieds}}' 'docs.components.form-fields'}}
+
+    {{nav.section 'Integrations'}}
+    {{nav.item 'i18n' 'docs.integrations.i18n'}}
+    {{nav.item 'ember-changeset' 'docs.integrations.ember-changeset'}}
+
+    {{!-- {{nav.item 'Hero' 'docs.components.docs-hero'}}
+    {{nav.item 'Viewer' 'docs.components.docs-viewer'}}
+    {{nav.item 'Snippet' 'docs.components.docs-snippet'}}
+    {{nav.item 'Demo' 'docs.components.docs-demo'}}
+    {{nav.item 'Logo' 'docs.components.docs-logo'}} --}}
+  {{/viewer.nav}}
+
+  {{#viewer.main}}
+    {{outlet}}
+  {{/viewer.main}}
+
+{{/docs-viewer}}
