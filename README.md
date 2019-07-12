@@ -139,8 +139,7 @@ update the property on the object with the new value.
 
 This action is called when a submit button is clicked. It will pass the object
 as first argument. By default it will call the `save` function on the object.
-This action also supports returning a promise, which the `{{f.submit}}` component,
-which uses [ember-async-button], will handle to show different states.
+This action also supports returning a promise, which the `{{f.submit}}` component.
 
 #### reset
 
@@ -184,7 +183,7 @@ Additionally these buttons are also available:
 
  - button
  - reset
- - submit (uses [ember-async-button] so supports those options as well).
+ - submit
 
 ## form-fields
 
@@ -287,4 +286,3 @@ while Ember Form For expects them (by default) to be on the `errors` property.
 For those still using the old configuration of setting `errorsProperty`, this method will still work.
 However, if both are defined then `errorsPath` will take precedence.
 
-[ember-async-button]: https://github.com/DockYard/ember-async-button
