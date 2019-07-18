@@ -1,0 +1,13 @@
+{{#docs-demo as |demo|}}
+  {{#demo.example name="demo-ember-changeset-template.hbs"}}
+    {{#form-for object=this.user submit=(action "submit") as |form|}}
+      {{form.text-field "firstname"}}
+      {{form.text-field "lastname"}}
+      {{form.email-field "email"}}
+      {{form.submit}}
+    {{/form-for}}
+  {{/demo.example}}
+
+  {{demo.snippet "demo-ember-changeset-template.hbs"}}
+  {{demo.snippet "demo-ember-changeset-component.js" label="component.js"}}
+{{/docs-demo}}
