@@ -216,3 +216,18 @@ test('it should not call the submit action if the form is not valid', function(a
   this.$('button[type="submit"]').click();
   assert.ok(true);
 });
+
+test('it should call the submit action if novalidate is set (even if the form is not valid)', function(assert) {
+  assert.expect(1);
+  this.on('submit', () => {
+    assert.ok(true);
+  });
+  this.render(hbs`
+    {{#form-for object novalidate=true submit=(action 'submit') as |f|}}
+      {{f.text-field "lastname" required=true}}
+      {{f.submit}}
+    {{/form-for}}
+  `);
+
+  this.$('button[type="submit"]').click();
+});
