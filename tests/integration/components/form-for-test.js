@@ -171,7 +171,7 @@ test('Form is focused when submit action is triggered and object contains errors
   });
 
   this.render(hbs`
-    {{#form-for object as |f|}}
+    {{#form-for object novalidate=true as |f|}}
       {{f.submit}}
     {{/form-for}}
   `);
