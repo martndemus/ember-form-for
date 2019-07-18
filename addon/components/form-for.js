@@ -21,7 +21,8 @@ const FormForComponent = Component.extend({
 
   config: service('ember-form-for/config'),
 
-  attributeBindings: ['tabindex', 'form:id'],
+  attributeBindings: ['tabindex', 'form:id', 'novalidate'],
+  novalidate: false,
 
   init() {
     this._super(...arguments);
@@ -94,12 +95,15 @@ const FormForComponent = Component.extend({
 
   actions: {
     submit(object) {
-      this.__isFormValid(object).then((isValid) => {
-        if (isValid === false) {
-          return isChangeset(object) ? null : this.element.reportValidity();
-        }
-        return this.__submit(object);
-      });
+      if (get(this, 'novalidate') === false) {
+        return this.__isFormValid(object).then((isValid) => {
+          if (isValid === false) {
+            return isChangeset(object) ? null : this.element.reportValidity();
+          }
+          return this.__submit(object);
+        });
+      }
+      return this.__submit(object);
     }
   }
 });
