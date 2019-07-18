@@ -171,7 +171,7 @@ test('Form is focused when submit action is triggered and object contains errors
   });
 
   this.render(hbs`
-    {{#form-for object as |f|}}
+    {{#form-for object novalidate=true as |f|}}
       {{f.submit}}
     {{/form-for}}
   `);
@@ -200,4 +200,34 @@ test('It passes down the form attribute to fields', function(assert) {
   `);
 
   assert.equal(this.$('form input').attr('name'), 'user[name]');
+});
+
+test('it should not call the submit action if the form is not valid', function(assert) {
+  this.on('submit', () => {
+    throw new Error('"submit" action should not be called');
+  });
+  this.render(hbs`
+    {{#form-for object submit=(action 'submit') as |f|}}
+      {{f.text-field "lastname" required=true}}
+      {{f.submit}}
+    {{/form-for}}
+  `);
+
+  this.$('button[type="submit"]').click();
+  assert.ok(true);
+});
+
+test('it should call the submit action if novalidate is set (even if the form is not valid)', function(assert) {
+  assert.expect(1);
+  this.on('submit', () => {
+    assert.ok(true);
+  });
+  this.render(hbs`
+    {{#form-for object novalidate=true submit=(action 'submit') as |f|}}
+      {{f.text-field "lastname" required=true}}
+      {{f.submit}}
+    {{/form-for}}
+  `);
+
+  this.$('button[type="submit"]').click();
 });

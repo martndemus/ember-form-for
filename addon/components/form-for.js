@@ -10,6 +10,10 @@ const {
   set
 } = Ember;
 
+const isChangeset = function(object) {
+  return get(object, '_content') !== undefined;
+};
+
 const FormForComponent = Component.extend({
   layout,
 
@@ -17,7 +21,8 @@ const FormForComponent = Component.extend({
 
   config: service('ember-form-for/config'),
 
-  attributeBindings: ['tabindex', 'form:id'],
+  attributeBindings: ['tabindex', 'form:id', 'novalidate'],
+  novalidate: false,
 
   init() {
     this._super(...arguments);
@@ -55,24 +60,50 @@ const FormForComponent = Component.extend({
     }
   },
 
+  __isFormValid(object) {
+    let promise = new Promise((resolve) => {
+
+      let _isChangeset = isChangeset(object);
+
+      if (_isChangeset) {
+        object.validate()
+          .then(() => resolve(get(object, 'isValid')));
+      }
+      return resolve(this.element.checkValidity());
+    });
+    return promise;
+  },
+
+  __submit(object) {
+    let promise = get(this, 'submit')(object);
+
+    set(this, 'tabindex', undefined);
+
+    if (promise && typeof promise.finally === 'function') {
+      promise.finally(() => {
+        if (this.isDestroyed || this.isDestroying) {
+          return;
+        }
+        this.handleErrors(object);
+      });
+    } else {
+      this.handleErrors(object);
+    }
+
+    return promise;
+  },
+
   actions: {
     submit(object) {
-      let promise = get(this, 'submit')(object);
-
-      set(this, 'tabindex', undefined);
-
-      if (promise && typeof promise.finally === 'function') {
-        promise.finally(() => {
-          if (this.isDestroyed || this.isDestroying) {
-            return;
+      if (get(this, 'novalidate') === false) {
+        return this.__isFormValid(object).then((isValid) => {
+          if (isValid === false) {
+            return isChangeset(object) ? null : this.element.reportValidity();
           }
-          this.handleErrors(object);
+          return this.__submit(object);
         });
-      } else {
-        this.handleErrors(object);
       }
-
-      return promise;
+      return this.__submit(object);
     }
   }
 });
