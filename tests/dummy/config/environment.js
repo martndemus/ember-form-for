@@ -3,6 +3,8 @@
 module.exports = function(environment) {
   var ENV = {
     modulePrefix: 'dummy',
+    podModulePrefix: 'dummy/pods',
+    modulePrefix: 'dummy',
     environment: environment,
     rootURL: '/',
     locationType: 'auto',
@@ -43,6 +45,8 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
+    // Allow ember-cli-addon-docs to update the rootURL in compiled assets
+    ENV.rootURL = 'ADDON_DOCS_ROOT_URL';
 
   }
 

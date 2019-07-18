@@ -2,5 +2,10 @@
 'use strict';
 
 module.exports = function(/* environment, appConfig */) {
-  return { };
+  return {
+
+    'ember-form-for': {
+      errorsPath: 'error.PROPERTY_NAME.validation'
+    }
+  };
 };

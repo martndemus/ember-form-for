@@ -1,1 +1,26 @@
-@import 'gh-fork-ribbon';
+.form-field--label {
+  display: block;
+
+  font-weight: 600;
+}
+
+.form-field--control {
+  display: block;
+
+  border: 1px solid #727272;
+  border-radius: 5px;
+  padding: 10px;
+
+  &:focus {
+    outline: none;
+    border-color: #0EB1D2;
+  }
+}
+
+.form-button--submit {
+  background-color: #0EB1D2;
+  border-radius: 5px;
+  color: black;
+  font-weight: 600;
+  padding: 10px 15px;
+}

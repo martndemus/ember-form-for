@@ -1,0 +1,11 @@
+{{#docs-demo as |demo|}}
+  {{#demo.example name="demo-simple-template.hbs"}}
+    {{#form-for object=this.user submit=(action "submit") as |form|}}
+      {{form.text-field "name"}}
+      {{form.submit}}
+    {{/form-for}}
+  {{/demo.example}}
+
+  {{demo.snippet "demo-simple-template.hbs"}}
+  {{demo.snippet "demo-simple-component.js" label="component.js"}}
+{{/docs-demo}}
