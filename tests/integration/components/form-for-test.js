@@ -201,3 +201,18 @@ test('It passes down the form attribute to fields', function(assert) {
 
   assert.equal(this.$('form input').attr('name'), 'user[name]');
 });
+
+test('it should not call the submit action if the form is not valid', function(assert) {
+  this.on('submit', () => {
+    throw new Error('"submit" action should not be called');
+  });
+  this.render(hbs`
+    {{#form-for object submit=(action 'submit') as |f|}}
+      {{f.text-field "lastname" required=true}}
+      {{f.submit}}
+    {{/form-for}}
+  `);
+
+  this.$('button[type="submit"]').click();
+  assert.ok(true);
+});
