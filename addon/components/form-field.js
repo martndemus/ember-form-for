@@ -39,7 +39,9 @@ const FormFieldComponent = Component.extend({
     return errorsPath.replace('PROPERTY_NAME', propertyName);
   },
 
-  classNameBindings: [],
+  dirty: false,
+
+  classNameBindings: [ 'dirty' ],
 
   concatenatedProperties: [
     'inputClasses',
@@ -173,6 +175,9 @@ const FormFieldComponent = Component.extend({
       let rawValue = get(this, 'rawValue');
       let deserializeValue = getWithDefault(this, 'deserializeValue', (value) => value);
       get(this, 'update')(object, propertyName, deserializeValue(value, rawValue));
+    },
+    focusOut() {
+      set(this, 'dirty', true);
     }
   }
 });
