@@ -228,6 +228,31 @@ Text to be displayed along the control as a hint to the user.
 
 If set to `true` it will mark the field as required.
 
+### Specific Fields
+
+#### `radio-group`
+
+This form-field groups `radio-field`s into a single form-field. It can be used like so:
+
+```hbs
+{{f.radio-group "propertyName" options=groupOptions label="Custom Label"}}
+```
+
+Where `groupOptions` is an array of options, containing a hash of the form `{ label, value }`.
+A valid configuration might be `[{ label: 'Yes', value: true }, { label: 'No', value: false }]`.
+This option could also take an array of string values, like `['yes', 'no']`. This form would use the
+values to generate labels, by first humanizing them (capitalizing the first letter and adding spaces, instead other separators).
+
+This form-field can also be used in block form, to customize the internal `radio-field` component.
+
+```hbs
+{{#f.radio-group "propertyName" options=groupOptions label='Custom Label' as |controls|}}
+  {{controls.radio-field fieldClasses='radio-inline' labelClasses='radio-inline' inputClasses='small-form-control'}}
+{{/f.radio-group}}
+```
+
+Where the above "extended" `radio-field` is set that way for every option.
+
 ## Integrations
 
 ## i18n

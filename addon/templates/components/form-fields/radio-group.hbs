@@ -13,13 +13,21 @@
   {{form-label f.labelText required=required tagName="legend"}}
 
   <ul>
-    {{#each options as |option|}}
-      {{form-fields/radio-field propertyName option
-          disabled=disabled
-          tagName="li"
-          object=object
-          update=(action update)
-      }}
+    {{#each hashOptions as |option|}}
+      {{#with (component 'form-fields/radio-field' propertyName option.value
+        label=option.label
+        disabled=disabled
+        tagName="li"
+        object=object
+        hideErrors=true
+        update=(action update)
+      ) as |radioField|}}
+        {{#if hasBlock}}
+          {{yield (hash radio-field=radioField)}}
+        {{else}}
+          {{component radioField}}
+        {{/if}}
+      {{/with}}
     {{/each}}
   </ul>
 
